@@ -5,7 +5,7 @@ import { Http } from "@angular/http";
 export class ProductosService {
 
   productos:any[] = [];
-  cargando_productos:boolean = true;
+  cargando:boolean = true;
 
   constructor( private http: Http ) {
       this.cargar_productos();
@@ -13,14 +13,16 @@ export class ProductosService {
 
    public cargar_productos(){
 
-    this.cargando_productos = true;
+    this.cargando = true;
 
         this.http.get('https://paginaweb-db652.firebaseio.com/productos_idx.json')
           .subscribe ( res => {
-              console.log(res.json() );
-              this.cargando_productos = false;
-              this.productos = res.json();
-          })
+              //console.log(res.json() );
+              setTimeout ( () => {
+                this.cargando = false;
+                this.productos = res.json();
+              },1500)
+          });
     
    }
 
